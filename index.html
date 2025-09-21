@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="logo.png">
+  <title>Holas Daviddd 😁</title>
+    <style>
+    body {
+      font-family: 'Pacifico', cursive, Arial, sans-serif;
+      background: #caf1ee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .envelope {
+      position: relative;
+      width: 450px;
+      height: 300px;
+      background: #33bfc4;
+      border-radius: 10px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #23abc4;
+      clip-path: polygon(0 0, 50% 50%, 100% 0);
+      transition: transform 1s;
+      transform-origin: top;
+      z-index: 2;
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .letter {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      transition: top 1s;
+      z-index: 1;
+    }
+
+    .envelope.open .letter {
+      top: 0;
+    }
+
+    .logo {
+      margin-top: 0px;
+      width: 80px;
+      cursor: pointer;
+    }
+    .circle-svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 800px;
+      height: 800px;
+      transform: translate(-50%, -50%);
+      animation: girar 10s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes girar {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+  </style>
+
+</head>
+<body>
+  <svg viewBox="0 0 300 300" class="circle-svg">
+    <defs>
+      <path id="circlePath" d="M150,150 m-120,0 a120,120 0 1,1 240,0 a120,120 0 1,1 -240,0"/>
+    </defs>
+    <text font-size="10" font-family="Arial, sans-serif" fill="#000000" textLength="754" lengthAdjust="spacingAndGlyphs">
+      <textPath id="circleText" href="#circlePath" startOffset="0%">
+        OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT •
+      </textPath>
+    </text>
+  </svg>
+
+  <div class="envelope" onclick="abrirCarta()">
+    <div class="flap"></div>
+    <div class="letter">
+      <h2>¡Hola, David! 🐲</h2>
+      <p>Entonces... no sé qué escribir pero bueno, sabes que tu pedido es raro?, o sea, esperaba que te gusta algún show de tv o película no tanto la comida 😁</p>
+      <img src="logo.png" alt="Pinguinito" class="logo" onclick="mostrarPantalla(event)">
+    </div>
+  </div>
+
+  <div id="pantalla" style="display:none; flex-direction:column; justify-content:center; align-items:center; height:100vh;">
+    <img id="pfFull" src="PF.jpg" alt="PF" style="display:none; width:100vw; height:100vh; object-fit:cover; position:fixed; top:0; left:0; z-index:0;">
+    <h1 style="position:relative; z-index:1; color:white;">Amigo, tienes gustos muy raros</h1>
+    <button id="banqueteBtn" onclick="explosion()">🍗</button>
+  </div>
+  <style>
+    #banqueteBtn {
+      position: relative;
+      z-index: 1;
+      background: #ffffff;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.3rem;
+      font-family: 'Pacifico', cursive;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+
+    #banqueteBtn:hover {
+      transform: scale(1.1);
+    }
+
+    .food, .mensaje, .foto {
+      pointer-events: none;
+    }
+    #pantalla h1, .mensaje {
+    font-family: 'Roboto', cursive;
+    }
+  </style>  
+
+  <script>
+    function abrirCarta() {
+      const envelope = document.querySelector(".envelope");
+      const circleText = document.getElementById("circleText");
+
+      envelope.classList.toggle("open");
+
+      if (envelope.classList.contains("open")) {
+        circleText.textContent = "🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 • 🐧 •";
+      } else {
+        circleText.textContent = " OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT • OPEN IT •";
+      }
+    }
+
+    function mostrarPantalla(event) {
+      event.stopPropagation(); 
+      document.querySelector(".envelope").style.display = "none";
+      document.querySelector(".circle-svg").style.display = "none"; // desaparecen los pinguinos girando
+
+      document.getElementById("pantalla").style.display = "flex";
+      document.getElementById("pfFull").style.display = "block"; // muestra PF.jpg
+    
+    }
+
+    const comidas = ["🍗","🍗","🍗","🍗","🍗","🍗","🍗","🍗","🍗","🍗","🍗","🍗","🍗","🍗","🍗"];
+    const mensajes = [
+      "Eres un caso raro 😂",
+      "¿En serio solo comida? 🍗",
+      "¿No prefieres una serie? 📺",
+      "¿O una película? 🎬",
+    ];
+
+    function explosion() {
+    for (let i = 0; i < 6; i++) {
+        const comida = document.createElement("div");
+        comida.className = "food";
+        comida.innerText = comidas[Math.floor(Math.random() * comidas.length)];
+        comida.style.position = "absolute";
+        comida.style.left = Math.random() * (window.innerWidth - 50) + "px"; // horizontal aleatoria
+        comida.style.top = Math.random() * (window.innerHeight - 50) + "px"; // vertical aleatoria
+        comida.style.fontSize = "2.2rem";
+        comida.style.transition = "transform 6s linear";
+        // Movimiento random: se desplaza a otra posición
+        setTimeout(() => {
+            comida.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
+        }, 50);
+        document.body.appendChild(comida);
+        setTimeout(() => comida.remove(), 6000);
+    }
+    
+        const mensaje = document.createElement("div");
+        mensaje.className = "mensaje";
+        mensaje.innerText = mensajes[Math.floor(Math.random() * mensajes.length)];
+        mensaje.style.position = "absolute";
+        mensaje.style.left = Math.random() * (window.innerWidth - 200) + "px";
+        mensaje.style.top = Math.random() * (window.innerHeight - 50) + "px"; // posición aleatoria vertical
+        mensaje.style.fontSize = "1.5rem";
+        mensaje.style.fontWeight = "bold";
+        mensaje.style.color = "white";
+        mensaje.style.textShadow = "1px 1px 5px black";
+        document.body.appendChild(mensaje);
+        setTimeout(() => mensaje.remove(), 6000);
+
+        const foto = document.createElement("img");
+        foto.src = "PF.jpg";
+        foto.style.position = "absolute";
+        foto.style.width = "120px";
+        foto.style.left = Math.random() * (window.innerWidth - 120) + "px";
+        foto.style.top = Math.random() * (window.innerHeight - 120) + "px";
+        foto.style.borderRadius = "20px";
+        foto.style.boxShadow = "0 0 15px rgba(0,0,0,0.6)";
+        foto.style.transition = "transform 6s linear";
+        // Movimiento random
+        setTimeout(() => {
+            foto.style.transform = `translate(${Math.random()*300-150}px, ${Math.random()*300-150}px) rotate(${Math.random()*360}deg)`;
+        }, 50);
+        document.body.appendChild(foto);
+        setTimeout(() => foto.remove(), 6000);
+    }
+  </script>
+</body>
+</html>
